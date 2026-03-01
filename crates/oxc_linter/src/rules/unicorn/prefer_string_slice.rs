@@ -189,7 +189,7 @@ fn test() {
         // (r#""foo".substring(-1, -5)"#, r#""foo".slice(0, 0)"#),
         // (r#""foo".substring(-1, 2)"#, r#""foo".slice(0, 2)"#),
         // (r#""foo".substring(length)"#, r#""foo".slice(Math.max(0, length))"#),
-        (r#""foo".substring("fo".length)"#, r#""foo".slice("fo".length)"#),
+        (r#""foo".substring("fo".length)"#, r#""foo".slice("fo".length)"#), // spellchecker:disable-line
         // (r#""foo".substring(0, length)"#, r#""foo".slice(0, Math.max(0, length))"#),
         // (r#""foo".substring(length, 0)"#, r#""foo".slice(0, Math.max(0, length))"#),
         // ("foo.substring(start)", "foo.slice(Math.max(0, start))"),
