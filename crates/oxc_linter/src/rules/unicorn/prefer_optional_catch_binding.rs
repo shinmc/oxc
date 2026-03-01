@@ -114,6 +114,19 @@ fn test() {
 
     let pass = vec![
         "try {} catch {}",
+        "try {} catch {
+                error
+            }",
+        "try {} catch(used) {
+                console.error(used);
+            }",
+        "try {} catch(usedInADeeperScope) {
+                function foo() {
+                    function bar() {
+                        console.error(usedInADeeperScope);
+                    }
+                }
+            }",
         "try {} catch ({message}) {alert(message)}",
         "try {} catch ({cause: {message}}) {alert(message)}",
         "try {} catch({nonExistsProperty = thisWillExecute()}) {}",
@@ -121,9 +134,41 @@ fn test() {
 
     let fail = vec![
         "try {} catch (_) {}",
+        "try {} catch (foo) {
+                function bar(foo) {}
+            }",
+        "try {} catch (outer) {
+                try {} catch (inner) {
+                }
+            }
+            try {
+                try {} catch (inTry) {
+                }
+            } catch (another) {
+                try {} catch (inCatch) {
+                }
+            } finally {
+                try {} catch (inFinally) {
+                }
+            }",
         "try {} catch (theRealErrorName) {}",
+        "/* comment */
+            try {
+                /* comment */
+                // comment
+            } catch (
+                /* comment */
+                // comment
+                unused
+                /* comment */
+                // comment
+            ) {
+                /* comment */
+                // comment
+            }
+            /* comment */",
         "try    {    } catch    (e)
-                    {    }",
+                {    }",
         "try {} catch(e) {}",
         "try {} catch (e){}",
         "try {} catch ({}) {}",

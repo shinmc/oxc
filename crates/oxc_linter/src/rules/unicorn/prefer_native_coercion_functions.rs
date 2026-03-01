@@ -307,6 +307,17 @@ fn test() {
         "array.some(function(v) {return;})",
         "array.some(function(v) {return v.v;})",
         "cells.every((cellRowIdx, cellColIdx, tableLoop, cellLoop) => {});",
+        "const identity = v => v;
+            array.some(identity)",
+        r#"array.some(function(v) {
+                "use strict";
+                return v;
+            })"#,
+        // "array.filter((value): value is string => value)", // {"parser": parsers.typescript},
+        // "array.filter((value): value is string => {
+        //         return value;
+        //     })", // {"parser": parsers.typescript},
+        // "array.some((value): value is string => value)", // {"parser": parsers.typescript}
     ];
 
     let fail = vec![

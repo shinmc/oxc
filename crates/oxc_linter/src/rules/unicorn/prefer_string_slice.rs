@@ -123,6 +123,19 @@ fn test() {
         "foo.substring(start, end)",
         r#""foo".substring(1, 3)"#,
         "foo.substring(1, 2, 3)",
+        "function foo() {
+                return (bar as string).substr(3);
+            }",
+        "function foo() {
+                return ((bar as string)).substring(3);
+            }",
+        "/* 1 */ (( /* 2 */ 0 /* 3 */, /* 4 */ foo /* 5 */ )) /* 6 */
+                . /* 7 */ substring /* 8 */ (
+                    /* 9 */ (( /* 10 */ bar /* 11 */ )) /* 12 */,
+                    /* 13 */ (( /* 14 */ 0 /* 15 */ )) /* 16 */,
+                    /* 17 */
+                )
+            /* 18 */",
         "foo.substr(0, ...bar)",
         "foo.substr(...bar)",
         "foo.substr(0, (100, 1))",

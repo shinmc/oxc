@@ -167,6 +167,14 @@ fn test() {
         "1.00 .toFixed(2)",
         "(1.00).toFixed(2)",
         "1.00?.toFixed(2)",
+        "console.log()
+            1..toString()",
+        "console.log()
+            a[1.].toString()",
+        "console.log()
+            1.00e10.toString()",
+        "console.log()
+            a[1.00e10].toString()",
         "a = .0;",
         "a = .0.toString()",
         "function foo(){return.0}",
