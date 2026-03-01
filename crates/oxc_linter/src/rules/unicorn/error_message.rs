@@ -133,6 +133,7 @@ fn test() {
         "/* global x */
             const a = x;
             throw x;",
+        // TODO: Get this passing.
         // "const Error = function () {};
         //     const err = new Error({
         //         name: 'Unauthorized',
@@ -168,6 +169,7 @@ fn test() {
             throw err;",
         "const foo = new TypeError()",
         "const foo = new SyntaxError()",
+        // TODO: Get all of the comments tests here passing.
         // "const errorMessage = Object.freeze({errorMessage: 1}).errorMessage;
         //     throw new Error(errorMessage)",
         "throw new Error([])",

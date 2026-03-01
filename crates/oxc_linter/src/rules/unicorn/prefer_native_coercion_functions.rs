@@ -260,6 +260,7 @@ fn test() {
         "const foo = function * (v) {yield String(v);}",
         "const foo = async function (v) {await String(v);}",
         "const foo = function (v) {return;}",
+        // TODO: Get this passing.
         // "function foo(v) {
         //         'use strict';
         //         return String(v);

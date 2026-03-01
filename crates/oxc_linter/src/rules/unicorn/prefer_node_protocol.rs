@@ -131,6 +131,7 @@ fn test() {
         r#"const fs = process.getBuiltinModule("unicorn")"#,
         r#"import {getBuiltinModule} from 'node:process';
             const fs = getBuiltinModule("fs");"#,
+        // This is a syntax error, can be ignored.
         // r#"export fs from "node:fs";"#,
         r#"const fs = require("node:fs") as "fs";"#,
         r#"type fs = typeof import("node:fs");"#,

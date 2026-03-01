@@ -160,6 +160,7 @@ fn test() {
         ("foo.bar?.baz.substring()", "foo.bar?.baz.slice()"),
         ("foo.bar.baz?.substr()", "foo.bar.baz?.slice()"),
         (r#""foo".substr()"#, r#""foo".slice()"#),
+        // TODO: Get this passing.
         // (
         //     r#"const length = 123;
         //     "foo".substr(0, length)"#,
@@ -176,6 +177,7 @@ fn test() {
         ),
         ("foo.substr(start)", "foo.slice(start)"),
         (r#""foo".substr(1)"#, r#""foo".slice(1)"#),
+        // TODO: Get this passing.
         // (r#""foo".substr(1, 2)"#, r#""foo".slice(1, 3)"#),
         // (
         //     r#""Sample".substr(0, "Sample".lastIndexOf("/"))"#,
@@ -185,11 +187,13 @@ fn test() {
         (r#""foo".substring()"#, r#""foo".slice()"#),
         (r#""foo".substring(1)"#, r#""foo".slice(1)"#),
         (r#""foo".substring(1, 2)"#, r#""foo".slice(1, 2)"#),
+        // TODO: Get this passing.
         // (r#""foo".substring(2, 1)"#, r#""foo".slice(1, 2)"#),
         // (r#""foo".substring(-1, -5)"#, r#""foo".slice(0, 0)"#),
         // (r#""foo".substring(-1, 2)"#, r#""foo".slice(0, 2)"#),
         // (r#""foo".substring(length)"#, r#""foo".slice(Math.max(0, length))"#),
         (r#""foo".substring("fo".length)"#, r#""foo".slice("fo".length)"#), // spellchecker:disable-line
+        // TODO: Get this passing.
         // (r#""foo".substring(0, length)"#, r#""foo".slice(0, Math.max(0, length))"#),
         // (r#""foo".substring(length, 0)"#, r#""foo".slice(0, Math.max(0, length))"#),
         // ("foo.substring(start)", "foo.slice(Math.max(0, start))"),
