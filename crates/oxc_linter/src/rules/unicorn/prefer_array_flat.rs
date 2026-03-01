@@ -529,21 +529,22 @@ fn test() {
         ("array.flatMap(x => x)", "array.flat()"),
         ("array.reduce((a, b) => a.concat(b), [])", "array.flat()"),
         ("array.reduce((a, b) => [...a, ...b], [])", "array.flat()"),
-        // ("Foo.bar.flatMap(x => x)", "Foo.bar.flat()"),
-        // (
-        //     "const values = getValues(); values.flatMap(x => x);",
-        //     "const values = getValues(); values.flat();",
-        // ),
-        // ("const values = []; values.flatMap(x => x);", "const values = []; values.flat();"),
-        // ("const Items = []; Items.flatMap(x => x);", "const Items = []; Items.flat();"),
-        // (
-        //     "for (const value of values) {
-        //         value.flatMap(x => x);
-        //     }",
-        //     "for (const value of values) {
-        //         value.flat();
-        //     }",
-        // ),
+        ("Foo.bar.flatMap(x => x)", "Foo.bar.flat()"),
+        (
+            "const values = getValues(); values.flatMap(x => x);",
+            "const values = getValues(); values.flat();",
+        ),
+        ("const values = []; values.flatMap(x => x);", "const values = []; values.flat();"),
+        ("const Items = []; Items.flatMap(x => x);", "const Items = []; Items.flat();"),
+        (
+            "for (const value of values) {
+                value.flatMap(x => x);
+            }",
+            "for (const value of values) {
+                value.flat();
+            }",
+        ),
+        // TODO: Get these passing.
         // ("/**/[].concat.apply([], array)", "/**/array.flat()"),
         // ("Array.prototype.concat.apply([], array)", "array.flat()"),
     ];
