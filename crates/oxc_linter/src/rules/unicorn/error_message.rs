@@ -118,7 +118,9 @@ fn test() {
         "throw foo()",
         "throw err",
         "throw 1",
-        "new Error(\"message\", 0, 0)",
+        "const err = TypeError('error');
+            throw err;",
+        r#"new Error("message", 0, 0)"#,
         "new Error(foo)",
         r"const errors = [];
             if (condition) {
@@ -128,13 +130,20 @@ fn test() {
                 throw new Error(errors.join('\\\\n'));
             }",
         "new Error(...foo)",
-        "new AggregateError(errors, \"message\")",
+        "/* global x */
+            const a = x;
+            throw x;",
+        "const Error = function () {};
+            const err = new Error({
+                name: 'Unauthorized',
+            });",
+        r#"new AggregateError(errors, "message")"#,
         "new NotAggregateError(errors)",
         "new AggregateError(...foo)",
-        "new AggregateError(...foo, \"\")",
+        r#"new AggregateError(...foo, "")"#,
         "new AggregateError(errors, ...foo)",
-        "new AggregateError(errors, message, \"\")",
-        "new AggregateError(\"\", message, \"\")",
+        r#"new AggregateError(errors, message, "")"#,
+        r#"new AggregateError("", message, "")"#,
         r#"new SuppressedError(error, suppressed, "message")"#,
         "new NotSuppressedError(error, suppressed)",
         "new SuppressedError(...foo)",
@@ -169,11 +178,12 @@ fn test() {
         "throw new Error({foo: 0}.foo)",
         "throw new Error(lineNumber=2)",
         "const error = new RangeError;",
+        "throw Object.assign(new Error(), {foo})",
         "new AggregateError(errors)",
         "AggregateError(errors)",
-        "new AggregateError(errors, \"\")",
+        r#"new AggregateError(errors, "")"#,
         "new AggregateError(errors, ``)",
-        "new AggregateError(errors, \"\", extraArgument)",
+        r#"new AggregateError(errors, "", extraArgument)"#,
         "const errorMessage = Object.freeze({errorMessage: 1}).errorMessage;
             throw new AggregateError(errors, errorMessage)",
         "new AggregateError(errors, [])",
