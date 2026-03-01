@@ -120,6 +120,13 @@ fn test() {
         "throw 1",
         "new Error(\"message\", 0, 0)",
         "new Error(foo)",
+        r"const errors = [];
+            if (condition) {
+                errors.push('hello');
+            }
+            if (errors.length) {
+                throw new Error(errors.join('\\\\n'));
+            }",
         "new Error(...foo)",
         "new AggregateError(errors, \"message\")",
         "new NotAggregateError(errors)",
@@ -128,6 +135,13 @@ fn test() {
         "new AggregateError(errors, ...foo)",
         "new AggregateError(errors, message, \"\")",
         "new AggregateError(\"\", message, \"\")",
+        r#"new SuppressedError(error, suppressed, "message")"#,
+        "new NotSuppressedError(error, suppressed)",
+        "new SuppressedError(...foo)",
+        r#"new SuppressedError(...foo, "")"#,
+        "new SuppressedError(error, suppressed, ...foo)",
+        r#"new SuppressedError(error, suppressed, message, "")"#,
+        r#"new SuppressedError("", "", message, "")"#,
     ];
 
     let fail = vec![
@@ -135,23 +149,60 @@ fn test() {
         "throw Error()",
         "throw new Error('')",
         "throw new Error(``)",
+        "const err = new Error();
+            throw err;",
+        "let err = 1;
+            err = new Error();
+            throw err;",
+        "let err = new Error();
+            err = 1;
+            throw err;",
         "const foo = new TypeError()",
         "const foo = new SyntaxError()",
+        "const errorMessage = Object.freeze({errorMessage: 1}).errorMessage;
+            throw new Error(errorMessage)",
         "throw new Error([])",
         "throw new Error([foo])",
+        "throw new Error([0][0])",
         "throw new Error({})",
         "throw new Error({foo})",
+        "throw new Error({foo: 0}.foo)",
+        "throw new Error(lineNumber=2)",
         "const error = new RangeError;",
         "new AggregateError(errors)",
         "AggregateError(errors)",
         "new AggregateError(errors, \"\")",
         "new AggregateError(errors, ``)",
         "new AggregateError(errors, \"\", extraArgument)",
+        "const errorMessage = Object.freeze({errorMessage: 1}).errorMessage;
+            throw new AggregateError(errors, errorMessage)",
         "new AggregateError(errors, [])",
         "new AggregateError(errors, [foo])",
+        "new AggregateError(errors, [0][0])",
         "new AggregateError(errors, {})",
         "new AggregateError(errors, {foo})",
+        "new AggregateError(errors, {foo: 0}.foo)",
+        "new AggregateError(errors, lineNumber=2)",
         "const error = new AggregateError;",
+        "new SuppressedError(error, suppressed,)",
+        "new SuppressedError(error,)",
+        "new SuppressedError()",
+        "SuppressedError(error, suppressed,)",
+        "SuppressedError(error,)",
+        "SuppressedError()",
+        r#"new SuppressedError(error, suppressed, "")"#,
+        "new SuppressedError(error, suppressed, ``)",
+        r#"new SuppressedError(error, suppressed, "", options)"#,
+        "const errorMessage = Object.freeze({errorMessage: 1}).errorMessage;
+            throw new SuppressedError(error, suppressed, errorMessage)",
+        "new SuppressedError(error, suppressed, [])",
+        "new SuppressedError(error, suppressed, [foo])",
+        "new SuppressedError(error, suppressed, [0][0])",
+        "new SuppressedError(error, suppressed, {})",
+        "new SuppressedError(error, suppressed, {foo})",
+        "new SuppressedError(error, suppressed, {foo: 0}.foo)",
+        "new SuppressedError(error, suppressed, lineNumber=2)",
+        "const error = new SuppressedError;",
     ];
 
     Tester::new(ErrorMessage::NAME, ErrorMessage::PLUGIN, pass, fail).test_and_snapshot();
