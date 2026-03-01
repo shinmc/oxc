@@ -260,6 +260,41 @@ fn test() {
         "const foo = function * (v) {yield String(v);}",
         "const foo = async function (v) {await String(v);}",
         "const foo = function (v) {return;}",
+        // "function foo(v) {
+        //         'use strict';
+        //         return String(v);
+        //     }",
+        "function foo(v) {
+                return String(v);
+                function x() {}
+            }",
+        "function foo({v}) {
+                return String(v);
+            }",
+        "function foo(v) {
+                return String({v});
+            }",
+        "function foo(...v) {
+                return String(v);
+            }",
+        "function foo(...v) {
+                return String(...v);
+            }",
+        // "class A {
+        //         constructor(v) {
+        //             return String(v);
+        //         }
+        //     }",
+        "class A {
+                get foo() {
+                    return String(v);
+                }
+            }",
+        // "class A {
+        //         set foo(v) {
+        //             return String(v);
+        //         }
+        //     }",
         "({get foo() {return String(v)}})",
         "({set foo(v) {return String(v)}})",
         "array.some?.(v => v)",
@@ -280,9 +315,55 @@ fn test() {
         "const foo = v => BigInt(v)",
         "const foo = v => Boolean(v)",
         "const foo = v => Symbol(v)",
+        "const foo = v => {
+                return String(v);
+            }",
+        "const foo = function (v) {
+                return String(v);
+            }",
         "function foo(v) { return String(v); }",
         "export default function foo(v) { return String(v); }",
         "export default function (v) { return String(v); }",
+        "class A {
+                foo(v) {
+                    return String(v);
+                }
+                bar() {}
+            }",
+        "class A {
+                static foo(v) {
+                    return String(v);
+                }
+                bar() {}
+            }",
+        "class A {
+                #foo(v) {
+                    return String(v);
+                }
+                bar() {}
+            }",
+        "class A {
+                static #foo(v) {
+                    return String(v);
+                }
+                bar() {}
+            }",
+        // TODO: Get these passing.
+        // "object = {
+        //         foo(v) {
+        //             return String(v);
+        //         },
+        //         bar
+        //     }",
+        // "object = {
+        //         foo: function(v) {
+        //             return String(v);
+        //         },
+        //         bar
+        //     }",
+        // "object = {
+        //         [function(v) {return String(v);}]: 1,
+        //     }",
         "const foo = (v, extra) => String(v)",
         "const foo = (v, ) => String(v, extra)",
         "const foo = (v, ) => /* comment */ String(v)",
@@ -294,8 +375,15 @@ fn test() {
         "array.findIndex(v => v)",
         "array.findLastIndex(v => v)",
         "array.some(v => v)",
+        "array.some(v => {
+                return v;
+            })",
+        // "array.some(function (v) {
+        //         return v;
+        //     })",
         "array.some((v, extra) => v)",
         "array.some((v, ) => /* comment */ v)",
+        "array.filter((value): boolean => value)", // {"parser": parsers.typescript}
     ];
 
     Tester::new(
