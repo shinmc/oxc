@@ -280,6 +280,7 @@ fn test() {
         "function foo(...v) {
                 return String(...v);
             }",
+        // TODO: Get this passing.
         // "class A {
         //         constructor(v) {
         //             return String(v);
@@ -290,6 +291,7 @@ fn test() {
                     return String(v);
                 }
             }",
+        // TODO: Get this passing.
         // "class A {
         //         set foo(v) {
         //             return String(v);
@@ -313,6 +315,7 @@ fn test() {
                 "use strict";
                 return v;
             })"#,
+        // TODO: Get these passing.
         // "array.filter((value): value is string => value)", // {"parser": parsers.typescript},
         // "array.filter((value): value is string => {
         //         return value;
@@ -389,6 +392,7 @@ fn test() {
         "array.some(v => {
                 return v;
             })",
+        // TODO: Get this working.
         // "array.some(function (v) {
         //         return v;
         //     })",
