@@ -113,39 +113,39 @@ fn test() {
     use crate::tester::Tester;
 
     let pass = vec![
-        r"try {} catch {}",
-        r"try {} catch ({message}) {alert(message)}",
-        r"try {} catch ({cause: {message}}) {alert(message)}",
-        r"try {} catch({nonExistsProperty = thisWillExecute()}) {}",
+        "try {} catch {}",
+        "try {} catch ({message}) {alert(message)}",
+        "try {} catch ({cause: {message}}) {alert(message)}",
+        "try {} catch({nonExistsProperty = thisWillExecute()}) {}",
     ];
 
     let fail = vec![
-        r"try {} catch (_) {}",
-        r"try {} catch (theRealErrorName) {}",
-        r"try    {    } catch    (e)
-			  	  {    }",
-        r"try {} catch(e) {}",
-        r"try {} catch (e){}",
-        r"try {} catch ({}) {}",
-        r"try {} catch ({message}) {}",
-        r"try {} catch ({message: notUsedMessage}) {}",
-        r"try {} catch ({cause: {message}}) {}",
+        "try {} catch (_) {}",
+        "try {} catch (theRealErrorName) {}",
+        "try    {    } catch    (e)
+                    {    }",
+        "try {} catch(e) {}",
+        "try {} catch (e){}",
+        "try {} catch ({}) {}",
+        "try {} catch ({message}) {}",
+        "try {} catch ({message: notUsedMessage}) {}",
+        "try {} catch ({cause: {message}}) {}",
     ];
 
     let fix = vec![
-        (r"try {} catch (_) {}", r"try {} catch {}"),
-        (r"try {} catch (theRealErrorName) {}", r"try {} catch {}"),
+        ("try {} catch (_) {}", "try {} catch {}"),
+        ("try {} catch (theRealErrorName) {}", "try {} catch {}"),
         (
-            r"try    {    } catch    (e)
-			  	  {    }",
-            r"try    {    } catch    {    }",
+            "try    {    } catch    (e)
+                    {    }",
+            "try    {    } catch    {    }",
         ),
-        (r"try {} catch(e) {}", r"try {} catch{}"),
-        (r"try {} catch (e){}", r"try {} catch {}"),
-        (r"try {} catch ({}) {}", r"try {} catch {}"),
-        (r"try {} catch ({message}) {}", r"try {} catch {}"),
-        (r"try {} catch ({message: notUsedMessage}) {}", r"try {} catch {}"),
-        (r"try {} catch ({cause: {message}}) {}", r"try {} catch {}"),
+        ("try {} catch(e) {}", "try {} catch{}"),
+        ("try {} catch (e){}", "try {} catch {}"),
+        ("try {} catch ({}) {}", "try {} catch {}"),
+        ("try {} catch ({message}) {}", "try {} catch {}"),
+        ("try {} catch ({message: notUsedMessage}) {}", "try {} catch {}"),
+        ("try {} catch ({cause: {message}}) {}", "try {} catch {}"),
     ];
 
     Tester::new(PreferOptionalCatchBinding::NAME, PreferOptionalCatchBinding::PLUGIN, pass, fail)
