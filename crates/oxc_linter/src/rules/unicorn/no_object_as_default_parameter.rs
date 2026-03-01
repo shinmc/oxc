@@ -135,9 +135,10 @@ fn test() {
         "class A {
                 constructor(foo = {a: 123}) {}
             }",
-        "class A {
-                set abc(foo = {a: 123}) {}
-            }",
+        // This one is a syntax error and so should be excluded from the failure cases.
+        // "class A {
+        //         set abc(foo = {a: 123}) {}
+        //     }",
         "class A {
                 static abc(foo = {a: 123}) {}
             }",

@@ -78,14 +78,6 @@ source: crates/oxc_linter/src/tester.rs
  3 │             }
    ╰────
 
-  × A 'set' accessor cannot have an initializer.
-   ╭─[no_object_as_default_parameter.tsx:2:24]
- 1 │ class A {
- 2 │                 set abc(foo = {a: 123}) {}
-   ·                        ────────────────
- 3 │             }
-   ╰────
-
   ⚠ eslint-plugin-unicorn(no-object-as-default-parameter): Do not use an object literal as default for parameter `foo`.
    ╭─[no_object_as_default_parameter.tsx:2:34]
  1 │ class A {
