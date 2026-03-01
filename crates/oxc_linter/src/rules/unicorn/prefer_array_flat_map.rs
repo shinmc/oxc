@@ -171,6 +171,26 @@ fn test() {
         "const bar = [1,2,3].map(i => i).map(i => [i]).flat()",
         "const bar = [1,2,3].sort().map(i => [i]).flat()",
         "const bar = (([1,2,3].map(i => [i]))).flat()",
+        "let bar = [1,2,3].map(i => {
+                return [i];
+            }).flat();",
+        "let bar = [1,2,3].map(i => {
+                return [i];
+            })
+            .flat();",
+        "let bar = [1,2,3].map(i => {
+                return [i];
+            }) // comment
+            .flat();",
+        "let bar = [1,2,3].map(i => {
+                return [i];
+            }) // comment
+            .flat(); // other",
+        "let bar = [1,2,3]
+                .map(i => { return [i]; })
+                .flat();",
+        "let bar = [1,2,3].map(i => { return [i]; })
+                .flat();",
         "let bar = [1,2,3] . map( x => y ) . flat () // 🤪",
         "const bar = [1,2,3].map(i => [i]).flat(1);",
     ];

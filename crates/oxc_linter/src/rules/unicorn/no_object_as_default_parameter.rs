@@ -110,6 +110,12 @@ fn test() {
         "const abc = ([foo = {a: 123}]) => {};",
         "const abc = ({foo: bar = {a: 123}}) => {};",
         "const abc = () => (foo = {a: 123});",
+        "class A {
+                [foo = {a: 123}]() {}
+            }",
+        "class A extends (foo = {a: 123}) {
+                a() {}
+            }",
     ];
 
     let fail = vec![
@@ -123,7 +129,37 @@ fn test() {
         "const abc = (foo = {a: 123, b: false}) => {};",
         r#"const abc = (foo = {a: false, b: 1, c: "test", d: null}) => {};"#,
         "const abc = function(foo = {a: 123}) {}",
-        "function abc(foo = {a: 123}) {}",
+        "class A {
+                abc(foo = {a: 123}) {}
+            }",
+        "class A {
+                constructor(foo = {a: 123}) {}
+            }",
+        "class A {
+                set abc(foo = {a: 123}) {}
+            }",
+        "class A {
+                static abc(foo = {a: 123}) {}
+            }",
+        "class A {
+                * abc(foo = {a: 123}) {}
+            }",
+        "class A {
+                static async * abc(foo = {a: 123}) {}
+            }",
+        "class A {
+                [foo = {a: 123}](foo = {a: 123}) {}
+            }",
+        "const A = class {
+                abc(foo = {a: 123}) {}
+            }",
+        "object = {
+                abc(foo = {a: 123}) {}
+            };",
+        "const A = class {
+                abc({a} = {a: 123}) {}
+            }",
+        "/**/function abc(foo = {a: 123}) {}",
         "const abc = (foo = {a: false}) => {};",
         "function abc({a} = {a: 123}) {}",
         "function abc([a] = {a: 123}) {}",
