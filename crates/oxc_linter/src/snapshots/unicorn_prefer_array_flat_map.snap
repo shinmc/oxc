@@ -88,6 +88,13 @@ source: crates/oxc_linter/src/tester.rs
 
   ⚠ eslint-plugin-unicorn(prefer-array-flat-map): `Array.flatMap` performs `Array.map` and `Array.flat` in one step.
    ╭─[prefer_array_flat_map.tsx:1:13]
+ 1 │ const bar = foo?.map(i => [i]).flat()
+   ·             ─────────────────────────
+   ╰────
+  help: Prefer `.flatMap(…)` over `.map(…).flat()`.
+
+  ⚠ eslint-plugin-unicorn(prefer-array-flat-map): `Array.flatMap` performs `Array.map` and `Array.flat` in one step.
+   ╭─[prefer_array_flat_map.tsx:1:13]
  1 │ const bar = { map: () => {} }.map(i => [i]).flat()
    ·             ──────────────────────────────────────
    ╰────
